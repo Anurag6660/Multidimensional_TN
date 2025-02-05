@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#####  Constructed by HPC everywhere #####
+#SBATCH --mail-user=adwived@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=24
+#SBATCH --cpus-per-task=1
+#SBATCH --time=0-0:59:00
+#SBATCH --mem=150gb
+#SBATCH -A r00395
+#SBATCH --mail-type=FAIL,BEGIN,END
+#SBATCH --job-name=my_job
+#SBATCH --output=survival.txt
+
+######  Module commands #####
+
+
+
+######  Job commands go below this line #####
+python3 /N/project/MQCD/Multi_Dim_Regularization/codes/modprop.py
+for i in 1.0 5.0 10.0 15.0 20.0
+#for i in 10.0
+do
+#	python3 NDcode.py /N/u/adwived/BigRed3/Python/data/all_pot.txt 2 50,17 $i 1.0 1E-7 1E-7 18000 300 1
+#	python3 test.py PM6_Full.txt 3 49,49,49 $i 1 1E-4 1E-4 3000 300 1
+	python3 /N/project/MQCD/Multi_Dim_Regularization/codes/survival.py 3 49,49,49 $i 12000
+#	python3 NDcode.py PM6_Full.txt 3 5,5,5 $i 1 1E-7 1E-7 30 300 1
+#	python3 NDcode.py PM6_Full.txt 4 5,5,5,5 $i 1 1E-7 1E-7 30 300 1
+#	python3 NDcode.py Mpot.txt 3 8,8,8 $i 1 1E-7 1E-7 30 300 1
+done
+
